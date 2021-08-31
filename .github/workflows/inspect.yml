@@ -1,0 +1,36 @@
+name: inspect
+
+on:
+  workflow_dispatch:
+    inputs:
+      URL:
+        description: 'ISO URL'
+        required: true
+        default: ''
+      TYPE:
+        description: 'type of file (file, torrent)'
+        required: true
+        default: 'file'
+
+env:
+  BRANCH: master
+
+jobs:
+  iso-inspector:
+    name: Version Checker
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: master
+
+    - name: Set env vars 
+      run: |
+        export URL="${{ github.event.inputs.URL }}"
+        echo "URL=$URL" >> $GITHUB_ENV
+        export TYPE="${{ github.event.inputs.TYPE }}"
+        echo "TYPE=$TYPE" >> $GITHUB_ENV
+
+    - name: Run iso inspector
+      run: |
+        docker run --rm -i -v $(pwd):/buildout ghcr.io/netbootxyz/iso-inspector
