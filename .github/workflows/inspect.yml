@@ -33,4 +33,4 @@ jobs:
 
     - name: Run iso inspector
       run: |
-        docker run --rm -i -v $(pwd):/buildout ghcr.io/netbootxyz/iso-inspector
+        docker run --rm -i -e URL=${URL} -e TYPE=${TYPE} -v $(pwd):/buildout ghcr.io/netbootxyz/iso-inspector
