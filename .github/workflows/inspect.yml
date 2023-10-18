@@ -34,6 +34,3 @@ jobs:
     - name: Run iso inspector
       run: |
         docker run --rm -i -e URL=${URL} -e TYPE=${TYPE} -v $(pwd):/buildout ghcr.io/netbootxyz/iso-inspector
-  
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
